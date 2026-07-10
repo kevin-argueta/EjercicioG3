@@ -4,6 +4,7 @@ using EjercicioG3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EjercicioG3.Migrations
 {
     [DbContext(typeof(EmpleadoDbContext))]
-    partial class EmpleadoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260710041446_Migracion-Actualizada")]
+    partial class MigracionActualizada
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace EjercicioG3.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EjercicioG3.Models.Asignaciones", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("EmpleadoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaAsignacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProyectoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("EmpleadoId");
-
-                    b.HasIndex("ProyectoId");
-
-                    b.ToTable("Asignaciones");
-                });
 
             modelBuilder.Entity("EjercicioG3.Models.Empleados", b =>
                 {
@@ -108,25 +80,6 @@ namespace EjercicioG3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Proyectos");
-                });
-
-            modelBuilder.Entity("EjercicioG3.Models.Asignaciones", b =>
-                {
-                    b.HasOne("EjercicioG3.Models.Empleados", "Empleado")
-                        .WithMany()
-                        .HasForeignKey("EmpleadoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EjercicioG3.Models.Proyectos", "Proyecto")
-                        .WithMany()
-                        .HasForeignKey("ProyectoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Empleado");
-
-                    b.Navigation("Proyecto");
                 });
 #pragma warning restore 612, 618
         }
